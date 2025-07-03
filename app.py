@@ -1,4 +1,4 @@
-from flask import Flask, request, ify, render_template, redirect
+from flask import Flask, request, jsonify, render_template, redirect
 from firebase_admin import credentials, firestore, initialize_app
 import os
 
