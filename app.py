@@ -1,11 +1,11 @@
-from flask import Flask, request, jsonify, render_template, redirect
+from flask import Flask, request, ify, render_template, redirect
 from firebase_admin import credentials, firestore, initialize_app
 import os
 
 app = Flask(__name__)
 
 # Initialize Firebase
-cred = credentials.Certificate("firebase-service-account.json")
+cred = credentials.Certificate("unlockimbot-firebase-adminsdk-fbsvc-5de8e43fe0.")
 initialize_app(cred)
 db = firestore.client()
 
@@ -45,7 +45,7 @@ def tool_rental():
     msg = "\ud83d\udee0\ufe0f Available Tools for Rent:\n"
     for tool in tools:
         msg += f"{tool['name']}: {'✅' if tool['status'] == 'available' else '❌ In Use'} - PGK {tool['price']} / {tool['duration']} mins\n"
-    return jsonify({"response": msg})
+    return ify({"response": msg})
 
 @app.route("/api/<toolname>_status")
 def tool_status(toolname):
@@ -53,8 +53,8 @@ def tool_status(toolname):
     if doc.exists:
         tool = doc.to_dict()
         msg = f"\ud83d\udd0d {tool['name']} Status:\nStatus: {'✅ Available' if tool['status']=='available' else '❌ In Use'}\nPrice: PGK {tool['price']}\nDuration: {tool['duration']} mins"
-        return jsonify({"response": msg})
-    return jsonify({"response": "Tool not found."})
+        return ify({"response": msg})
+    return ify({"response": "Tool not found."})
 
 if __name__ == "__main__":
     app.run(debug=True)
