@@ -45,7 +45,7 @@ def tool_rental():
     msg = "\ud83d\udee0\ufe0f Available Tools for Rent:\n"
     for tool in tools:
         msg += f"{tool['name']}: {'✅' if tool['status'] == 'available' else '❌ In Use'} - PGK {tool['price']} / {tool['duration']} mins\n"
-    return ify({"response": msg})
+    return jsonify({"response": msg})
 
 @app.route("/api/<toolname>_status")
 def tool_status(toolname):
@@ -53,8 +53,9 @@ def tool_status(toolname):
     if doc.exists:
         tool = doc.to_dict()
         msg = f"\ud83d\udd0d {tool['name']} Status:\nStatus: {'✅ Available' if tool['status']=='available' else '❌ In Use'}\nPrice: PGK {tool['price']}\nDuration: {tool['duration']} mins"
-        return ify({"response": msg})
-    return ify({"response": "Tool not found."})
+        return jsonify({"response": msg})
+    return jsonify({"response": "Tool not found."})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
