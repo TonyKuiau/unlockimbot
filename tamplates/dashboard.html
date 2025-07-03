@@ -1,10 +1,29 @@
-<form method="POST" action="/update_tool">
-  <input name="tool" value="unlocktool">
-  <select name="status">
-    <option value="available">Available</option>
-    <option value="in_use">In Use</option>
-  </select>
-  <input name="price" type="number" placeholder="PGK">
-  <input name="duration" type="number" placeholder="Minutes">
-  <button type="submit">Update</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unlockim Fone PNG - Admin Dashboard</title>
+</head>
+<body>
+    <h1>Tool Rental Dashboard</h1>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Tool Name</th>
+                <th>Status</th>
+                <th>Price (PGK)</th>
+                <th>Duration (mins)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tool in tools %}
+            <tr>
+                <td>{{ tool.name }}</td>
+                <td>{{ tool.status }}</td>
+                <td>{{ tool.price }}</td>
+                <td>{{ tool.duration }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
